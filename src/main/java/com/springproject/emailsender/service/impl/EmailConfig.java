@@ -16,8 +16,10 @@ public class EmailConfig{
     @Bean
     public static JavaMailSender getJavaMailSender(){
         Properties props = loadProperties();
+        props.put("mail.smtp.starttls.enable", "true");
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setJavaMailProperties(props);
+        mailSender.setHost("smtp.gmail.com");
 
         return mailSender;
     }
