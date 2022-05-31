@@ -4,14 +4,14 @@ import com.springproject.emailsender.model.User;
 import com.springproject.emailsender.model.UserRepository;
 import com.springproject.emailsender.model.exceptions.UsernameAlreadyExistsException;
 import com.springproject.emailsender.service.UserService;
-import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired

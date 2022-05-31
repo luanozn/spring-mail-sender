@@ -5,9 +5,7 @@ import com.springproject.emailsender.service.UserService;
 import com.springproject.emailsender.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 
@@ -23,4 +21,14 @@ public class UserController {
         return ResponseEntity.ok(userService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById( String username){
+        return ResponseEntity.ok(userService.findById(username));
+    }
+
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User user){
+        userService.insert(user);
+        return ResponseEntity.ok(user);
+    }
 }
