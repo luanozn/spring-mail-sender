@@ -41,13 +41,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(String username, User user) {
-        Optional<User> userDb = repository.findById(username);
-        if(userDb.isPresent())
-            repository.save(user);
-    }
-
-    @Override
     public void remove(User user) {
 
     }

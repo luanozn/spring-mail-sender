@@ -10,7 +10,6 @@ public interface UserService {
     Iterable<User> findAll();
     User findById(String username);
     void insert(User user);
-    void update(String username, User user);
     void remove(User user);
 
 }
