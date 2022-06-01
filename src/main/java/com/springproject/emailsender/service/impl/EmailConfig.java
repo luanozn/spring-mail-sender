@@ -6,6 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -13,6 +14,8 @@ import java.util.Properties;
 @Configuration
 public class EmailConfig{
 
+    private static final File FILE = new File("application.properties");
+    private static final String ABSOLUTE_PATH = FILE.getAbsolutePath();
     @Bean
     public static JavaMailSender getJavaMailSender(){
         Properties props = loadProperties();
@@ -26,7 +29,7 @@ public class EmailConfig{
 
     public static Properties loadProperties(){
         Properties props = new Properties();
-        try(FileInputStream stream = new FileInputStream("E:\\Luan\\IdeaProjects\\spring-mail-sender\\src\\main\\resources\\application.properties")){
+        try(FileInputStream stream = new FileInputStream(ABSOLUTE_PATH.replace("\\application.properties", "\\src\\main\\resources\\application.properties"))){
                 props.load(stream);
         } catch (IOException e) {
             e.printStackTrace();
