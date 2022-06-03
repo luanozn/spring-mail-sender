@@ -2,6 +2,7 @@ package com.springproject.emailsender.service.impl;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
+@PropertySource(value = "application.properties")
 public class EmailConfig{
 
     private static final File FILE = new File("application.properties");
@@ -29,7 +31,8 @@ public class EmailConfig{
 
     public static Properties loadProperties(){
         Properties props = new Properties();
-        try(FileInputStream stream = new FileInputStream(ABSOLUTE_PATH.replace("\\application.properties", "\\src\\main\\resources\\application.properties"))){
+        System.out.println(ABSOLUTE_PATH);
+        try(FileInputStream stream = new FileInputStream(ABSOLUTE_PATH.replace("application.properties", "/src/main/resources/application.properties"))){
                 props.load(stream);
         } catch (IOException e) {
             e.printStackTrace();
