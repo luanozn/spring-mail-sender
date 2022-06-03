@@ -24,6 +24,8 @@ public class EmailConfig{
         props.put("mail.smtp.starttls.enable", "true");
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setJavaMailProperties(props);
+        mailSender.setUsername("springprojectmailsender@gmail.com");
+        mailSender.setPassword("hyrpkfrhotuzxqnr");
         mailSender.setHost("smtp.gmail.com");
 
         return mailSender;
