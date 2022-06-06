@@ -3,14 +3,16 @@ package com.springproject.emailsender.configs;
 import com.springproject.emailsender.model.User;
 import com.springproject.emailsender.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
 public class MessageConfig {
 
-    // Classe de configuraçao criada para isolar o uso das mensagens HTML contidas nos emails do codigo principal
+    /*
+        Classe de configuraçao criada para isolar o uso das mensagens HTML
+        contidas nos emails do codigo principal
+    */
 
     @Autowired
     static UserServiceImpl userService;

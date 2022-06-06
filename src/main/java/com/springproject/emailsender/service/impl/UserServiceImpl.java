@@ -2,7 +2,7 @@ package com.springproject.emailsender.service.impl;
 
 import com.springproject.emailsender.model.User;
 import com.springproject.emailsender.model.UserRepository;
-import com.springproject.emailsender.model.exceptions.UpdateException;
+import com.springproject.emailsender.model.exceptions.UserNotFoundException;
 import com.springproject.emailsender.model.exceptions.UsernameAlreadyExistsException;
 import com.springproject.emailsender.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +31,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(String username) {
-        Optional<User> user = repository.findById(username);
-        return user.orElse(null);
+        return repository.findById(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
     @Override
     public void insert(User user) {
         LinkedList<User> users = findAll();
         if (users.stream().map(User::getLogin).collect(Collectors.toList()).contains(user.getLogin()))
-            throw new UsernameAlreadyExistsException("Username already exists");
+            throw new UsernameAlreadyExistsException(user.getLogin());
         else {
             repository.save(user);
         }
     }
 
     @Override
-    public void remove(User user) throws IllegalArgumentException {
-        repository.delete(user);
+    public void remove(User user){
+        if(repository.existsById(user.getLogin()))
+            repository.delete(user);
+        else
+            throw new UserNotFoundException(user.getLogin());
     }
 
     @Override
@@ -59,7 +61,7 @@ public class UserServiceImpl implements UserService {
         )
             repository.save(user);
         else
-            throw new UpdateException("Can't update an nonexistent user.");
+            throw new UserNotFoundException(user.getLogin());
     }
 
     public List<String> getInfo(User user){

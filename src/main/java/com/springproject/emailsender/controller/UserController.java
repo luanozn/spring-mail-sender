@@ -2,11 +2,8 @@ package com.springproject.emailsender.controller;
 
 import com.springproject.emailsender.configs.MessageConfig;
 import com.springproject.emailsender.model.User;
-import com.springproject.emailsender.model.exceptions.CadasterException;
-import com.springproject.emailsender.service.UserService;
 import com.springproject.emailsender.service.impl.EmailServiceImpl;
 import com.springproject.emailsender.service.impl.UserServiceImpl;
-import feign.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +46,7 @@ public class UserController {
         User user = userService.findById(username);
         userService.remove(user);
         emailService.sendEmail(user.getEmail(), "Remoção de Cadastro", MessageConfig.getDeleteMessage(user));
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")

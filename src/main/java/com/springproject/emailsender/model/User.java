@@ -4,12 +4,10 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.List;
 
 @Entity
-public class User {
+public class User { //Entidade principal da aplicação
 
     @Id
     @NotNull
