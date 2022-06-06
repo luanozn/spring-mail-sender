@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void remove(User user) {
-
+    public void remove(User user) throws IllegalArgumentException {
+        repository.delete(user);
     }
 
 }

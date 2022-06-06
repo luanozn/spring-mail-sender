@@ -1,4 +1,4 @@
-package com.springproject.emailsender.service.impl;
+package com.springproject.emailsender.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +24,8 @@ public class EmailConfig{
         props.put("mail.smtp.starttls.enable", "true");
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setJavaMailProperties(props);
-        mailSender.setUsername("");                  //Email que enviará as mensagens.
-        mailSender.setPassword("");                  //A senha do email especificado.
+        mailSender.setUsername("springprojectmailsender@gmail.com");                  //Email que enviará as mensagens.
+        mailSender.setPassword("hmfukjicusyakffp");                                   //A senha do email especificado.
         mailSender.setHost("smtp.gmail.com");
 
         return mailSender;
@@ -33,7 +33,6 @@ public class EmailConfig{
 
     public static Properties loadProperties(){
         Properties props = new Properties();
-        System.out.println(ABSOLUTE_PATH);
         try(FileInputStream stream = new FileInputStream(ABSOLUTE_PATH.replace("application.properties", "/src/main/resources/application.properties"))){
                 props.load(stream);
         } catch (IOException e) {

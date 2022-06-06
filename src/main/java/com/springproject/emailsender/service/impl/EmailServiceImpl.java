@@ -1,7 +1,7 @@
 package com.springproject.emailsender.service.impl;
 
+import com.springproject.emailsender.configs.EmailConfig;
 import com.springproject.emailsender.service.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;

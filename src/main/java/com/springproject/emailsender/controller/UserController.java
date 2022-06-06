@@ -1,9 +1,11 @@
 package com.springproject.emailsender.controller;
 
 import com.springproject.emailsender.model.User;
+import com.springproject.emailsender.model.exceptions.CadasterException;
 import com.springproject.emailsender.service.UserService;
 import com.springproject.emailsender.service.impl.EmailServiceImpl;
 import com.springproject.emailsender.service.impl.UserServiceImpl;
+import feign.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +54,37 @@ public class UserController {
                         "<body>\n" +
                         "<h2>Cadastro realizado com sucesso!</h2>\n" +
                         "<p>Parabéns %s, seu usuário foi cadastrado com sucesso.</p>\n" +
+                        "<p id='att'>Atenciosamente</p>\n" +
+                        "<p>Projeto Mail Sender</p>\n" +
+                        "</body>\n" +
+                        "</html>\n", user.getName()));
+        return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<User> remove(String username){
+        User user = userService.findById(username);
+        userService.remove(user);
+        emailService.sendEmail(
+                user.getEmail(),
+                "Remoção de Cadastro",
+                String.format("<!DOCTYPE html>\n" +
+                        "<html>\n" +
+                        "<head>\n" +
+                        "<!-- HTML Codes by Quackit.com -->\n" +
+                        "<title>\n" +
+                        "</title>\n" +
+                        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                        "<style>\n" +
+                        "body {background-repeat:no-repeat;background-position:center center;background-attachment:fixed;}\n" +
+                        "h2{font-family:Impact, sans-serif;font-variant:small-caps;color:#58181f;padding-bottom:20px}\n" +
+                        "p {text-align:center;font-family:Arial, sans-serif;font-size:15px;font-style:italic;font-weight:bold;color:#000000}" +
+                        "att {padding-top:20px}\n" +
+                        "</style>\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "<h2>Deleção de cadastro realizada com sucesso</h2>\n" +
+                        "<p>%s, seu cadastro foi removido com sucesso.</p>\n" +
                         "<p id='att'>Atenciosamente</p>\n" +
                         "<p>Projeto Mail Sender</p>\n" +
                         "</body>\n" +
