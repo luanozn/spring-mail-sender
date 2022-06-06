@@ -19,19 +19,19 @@ public class EmailConfig{
     private static final File FILE = new File("application.properties");
     private static final String ABSOLUTE_PATH = FILE.getAbsolutePath();
     @Bean
-    public static JavaMailSender getJavaMailSender(){
+    public static JavaMailSender getJavaMailSender(){ // Instancia, configura e retorna o JavaMailSender (O que enviará os emails)
         Properties props = loadProperties();
         props.put("mail.smtp.starttls.enable", "true");
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setJavaMailProperties(props);
-        mailSender.setUsername("springprojectmailsender@gmail.com");                  //Email que enviará as mensagens.
-        mailSender.setPassword("hmfukjicusyakffp");                                   //A senha do email especificado.
+        mailSender.setUsername("");                  //Email que enviará as mensagens.
+        mailSender.setPassword("");                  //A senha do email especificado.
         mailSender.setHost("smtp.gmail.com");
 
         return mailSender;
     }
 
-    public static Properties loadProperties(){
+    public static Properties loadProperties(){  // Carrega as propriedades contidas no arquivo application.properties
         Properties props = new Properties();
         try(FileInputStream stream = new FileInputStream(ABSOLUTE_PATH.replace("application.properties", "/src/main/resources/application.properties"))){
                 props.load(stream);

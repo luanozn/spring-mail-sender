@@ -14,10 +14,13 @@ import java.util.Objects;
 @Service("emailService")
 public class EmailServiceImpl implements EmailService {
 
+    /*
+    * Classe que cria uma mensagem personalizada com base no encoding UTF-8 e envia o email
+    * de acordo com as necessidades do programado.
+    * Pode ser utilizada onde houver a injeção de dependência por parte do Spring(@Autowired)
+    * */
 
     JavaMailSenderImpl javaMailSender = (JavaMailSenderImpl) EmailConfig.getJavaMailSender();
-
-    SimpleMailMessage preConfiguredMessage = EmailConfig.getMailMessage();
 
     @Override
     public void sendEmail(String destiny, String title, String content) {

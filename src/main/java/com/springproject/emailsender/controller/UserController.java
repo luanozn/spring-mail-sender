@@ -1,5 +1,6 @@
 package com.springproject.emailsender.controller;
 
+import com.springproject.emailsender.configs.MessageConfig;
 import com.springproject.emailsender.model.User;
 import com.springproject.emailsender.model.exceptions.CadasterException;
 import com.springproject.emailsender.service.UserService;
@@ -11,10 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
+
+    /*
+       Classe que recebe as requests, e provê uma response de acordo com o  que lhe foi passado.
+     */
 
     @Autowired
     UserServiceImpl userService;
@@ -34,30 +40,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user){
         userService.insert(user);
-        emailService.sendEmail(
-                user.getEmail(),
-                "Confirmação de Cadastro",
-                String.format("<!DOCTYPE html>\n" +
-                        "<html>\n" +
-                        "<head>\n" +
-                        "<!-- HTML Codes by Quackit.com -->\n" +
-                        "<title>\n" +
-                        "</title>\n" +
-                        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                        "<style>\n" +
-                        "body {background-repeat:no-repeat;background-position:center center;background-attachment:fixed;}\n" +
-                        "h2{font-family:Impact, sans-serif;font-variant:small-caps;color:#58181f;padding-bottom:20px}\n" +
-                        "p {text-align:center;font-family:Arial, sans-serif;font-size:15px;font-style:italic;font-weight:bold;color:#000000}" +
-                        "att {padding-top:20px}\n" +
-                        "</style>\n" +
-                        "</head>\n" +
-                        "<body>\n" +
-                        "<h2>Cadastro realizado com sucesso!</h2>\n" +
-                        "<p>Parabéns %s, seu usuário foi cadastrado com sucesso.</p>\n" +
-                        "<p id='att'>Atenciosamente</p>\n" +
-                        "<p>Projeto Mail Sender</p>\n" +
-                        "</body>\n" +
-                        "</html>\n", user.getName()));
+        emailService.sendEmail(user.getEmail(),"Confirmação de Cadastro", MessageConfig.getRegisterMessage(user));
         return ResponseEntity.ok(user);
     }
 
@@ -65,30 +48,15 @@ public class UserController {
     public ResponseEntity<User> remove(String username){
         User user = userService.findById(username);
         userService.remove(user);
-        emailService.sendEmail(
-                user.getEmail(),
-                "Remoção de Cadastro",
-                String.format("<!DOCTYPE html>\n" +
-                        "<html>\n" +
-                        "<head>\n" +
-                        "<!-- HTML Codes by Quackit.com -->\n" +
-                        "<title>\n" +
-                        "</title>\n" +
-                        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                        "<style>\n" +
-                        "body {background-repeat:no-repeat;background-position:center center;background-attachment:fixed;}\n" +
-                        "h2{font-family:Impact, sans-serif;font-variant:small-caps;color:#58181f;padding-bottom:20px}\n" +
-                        "p {text-align:center;font-family:Arial, sans-serif;font-size:15px;font-style:italic;font-weight:bold;color:#000000}" +
-                        "att {padding-top:20px}\n" +
-                        "</style>\n" +
-                        "</head>\n" +
-                        "<body>\n" +
-                        "<h2>Deleção de cadastro realizada com sucesso</h2>\n" +
-                        "<p>%s, seu cadastro foi removido com sucesso.</p>\n" +
-                        "<p id='att'>Atenciosamente</p>\n" +
-                        "<p>Projeto Mail Sender</p>\n" +
-                        "</body>\n" +
-                        "</html>\n", user.getName()));
+        emailService.sendEmail(user.getEmail(), "Remoção de Cadastro", MessageConfig.getDeleteMessage(user));
+        return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable("id") String username, @RequestBody User user){
+        List<String> information = userService.getInfo(userService.findById(username));
+        userService.update(username, user);
+        emailService.sendEmail(user.getEmail(), "Atualização de Cadastro", MessageConfig.getUpdateMessage(username, user, information));
         return ResponseEntity.ok(user);
     }
 
