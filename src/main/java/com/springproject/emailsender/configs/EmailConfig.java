@@ -1,7 +1,9 @@
 package com.springproject.emailsender.configs;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,20 +15,21 @@ import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
-@PropertySource(value = "application.properties")
 public class EmailConfig{
+    
 
     private static final File FILE = new File("application.properties");
     private static final String ABSOLUTE_PATH = FILE.getAbsolutePath();
+
     @Bean
     public static JavaMailSender getJavaMailSender(){ // Instancia, configura e retorna o JavaMailSender (O que enviará os emails)
         Properties props = loadProperties();
         props.put("mail.smtp.starttls.enable", "true");
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setJavaMailProperties(props);
-        mailSender.setUsername("");                  //Email que enviará as mensagens.
-        mailSender.setPassword("");                  //A senha do email especificado.
-        mailSender.setHost("smtp.gmail.com");
+        mailSender.setUsername(mailSender.getJavaMailProperties().getProperty("spring.mail.name"));
+        mailSender.setPassword(mailSender.getJavaMailProperties().getProperty("spring.mail.password"));
+        mailSender.setHost(mailSender.getJavaMailProperties().getProperty("spring.mail.host"));
 
         return mailSender;
     }
