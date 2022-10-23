@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.persistence.NoResultException;
 
+/**
+ * Controller for the exception treatment based on the HTTP status.
+ * 404 (not found)   -> to exceptions without result;
+ * 400 (bad request) -> to exceptions with malformed requests.
+ * Avoid error 500 (Server error)
+ */
+
 @ControllerAdvice
 public class ExceptionsConfig {
 
-    /*
-        Classe que configura o tratamento de exceções com base nos status HTTP
-        neste caso, utiliza-se 404 (not found) para exceções sem resultado
-        e 400 (bad request) para outras exceções (Username já existe)
-
-        Ela é utilizada para evitar que sempre ocorra o erro 500 (Server error)
-     */
 
     @ResponseBody
     @ExceptionHandler(NoResultException.class)

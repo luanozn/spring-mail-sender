@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Class that receives the requests and provides the adequate response
+ */
 @RestController
 @RequestMapping("users")
 public class UserController {
 
-    /*
-       Classe que recebe as requests, e provê uma response de acordo com o  que lhe foi passado.
-     */
 
     @Autowired
     UserServiceImpl userService;
@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById( String username){
+    public ResponseEntity<User> findById(@PathVariable("id") String username){
         return ResponseEntity.ok(userService.findById(username));
     }
 
@@ -41,8 +41,8 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @DeleteMapping
-    public ResponseEntity<User> remove(String username){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> remove(@PathVariable("id") String username){
         User user = userService.findById(username);
         userService.remove(user);
         emailService.sendEmail(user.getEmail(), "Remoção de Cadastro", MessageConfig.getDeleteMessage(user));

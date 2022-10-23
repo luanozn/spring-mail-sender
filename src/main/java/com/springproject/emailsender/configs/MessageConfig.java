@@ -4,108 +4,59 @@ import com.springproject.emailsender.model.User;
 import com.springproject.emailsender.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
+
+/**
+ * Configuration class created to read the isolated the HTML messages in respective files
+ * from the main code.
+ */
 
 @Configuration
 public class MessageConfig {
 
-    /*
-        Classe de configuraçao criada para isolar o uso das mensagens HTML
-        contidas nos emails do codigo principal
-    */
+    private static final File[] files = {new File("DeleteMessage"), new File("RegisterMessage"), new File("UpdateMessage")};
 
-    @Autowired
-    static UserServiceImpl userService;
+    private static final String DELETE_MESSAGE = files[0].getAbsolutePath().replace("DeleteMessage", "src\\main\\resources\\messages\\DeleteMessage");
+    private static final String REGISTER_MESSAGE = files[1].getAbsolutePath().replace("RegisterMessage", "src\\main\\resources\\messages\\RegisterMessage");
+    private static final String UPDATE_MESSAGE = files[2].getAbsolutePath().replace("UpdateMessage", "src\\main\\resources\\messages\\UpdateMessage");
 
 
-    public static String getRegisterMessage(User user){
-        return String.format("<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<head>\n" +
-                "<!-- HTML Codes by Quackit.com -->\n" +
-                "<title>\n" +
-                "</title>\n" +
-                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                "<style>\n" +
-                "body {background-repeat:no-repeat;background-position:center center;background-attachment:fixed;}\n" +
-                "h2{font-family:Impact, sans-serif;font-variant:small-caps;color:#58181f;padding-bottom:20px}\n" +
-                "p {text-align:center;font-family:Arial, sans-serif;font-size:15px;font-style:italic;font-weight:bold;color:#000000}" +
-                "att {padding-top:20px}\n" +
-                "</style>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<h2>Cadastro realizado com sucesso!</h2>\n" +
-                "<p>Parabéns %s, seu usuário foi cadastrado com sucesso.</p>\n" +
-                "<p>/*------------------------------------------*/</p>" +
-                "<p id='att'>Atenciosamente</p>\n" +
-                "<p>Projeto Mail Sender</p>\n" +
-                "</body>\n" +
-                "</html>\n", user.getName());
+    public static String getDeleteMessage(User user){
+        return String.format(loadMessage(DELETE_MESSAGE) ,user.getName());
     }
 
     public static String getUpdateMessage(String username, User user, List<String> information){
-        return String.format("<!DOCTYPE html>\n" +
-                        "<html>\n" +
-                        "<head>\n" +
-                        "<!-- HTML Codes by Quackit.com -->\n" +
-                        "<title>\n" +
-                        "</title>\n" +
-                        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                        "<style>\n" +
-                        "body {background-repeat:no-repeat;background-position:center center;background-attachment:fixed;}\n" +
-                        "h2{font-family:Impact, sans-serif;font-variant:small-caps;color:#58181f;padding-bottom:20px}\n" +
-                        "p {text-align:center;font-family:Arial, sans-serif;font-size:15px;font-style:italic;font-weight:bold;color:#000000}" +
-                        "att {padding-top:20px}\n" +
-                        "</style>\n" +
-                        "</head>\n" +
-                        "<body>\n" +
-                        "<h2>Atualização de dados cadastrais</h2>\n" +
-                        "<p>%s, as seguintes alterações foram realizadas em seu cadatro:</p>\n" +
-                        "<p>/*------------------------------------------*/</p>" +
-                        "<p>Antigo: </p>" +
-                        "<p>Usuário: %s </p>" +
-                        "<p>Senha: %s </p>" +
-                        "<p>Nome: %s </p>" +
-                        "<p>Email: %s </p>" +
-                        "<p>/*------------------------------------------*/</p>" +
-                        "<p>Novo: </p>" +
-                        "<p>Usuário: %s </p>" +
-                        "<p>Senha: %s </p>" +
-                        "<p>Nome: %s </p>" +
-                        "<p>Email: %s </p>" +
-                        "<p>/*------------------------------------------*/</p>" +
-                        "<p id='att'>Atenciosamente</p>\n" +
-                        "<p>Projeto Mail Sender</p>\n" +
-                        "</body>\n" +
-                        "</html>\n",
+
+        return String.format(loadMessage(UPDATE_MESSAGE),
                 user.getName(),
                 information.get(0), information.get(1), information.get(2), information.get(3),
                 user.getLogin(), user.getPassword(), user.getName(), user.getEmail()
         );
     }
 
-    public static String getDeleteMessage(User user){
-        return String.format("<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<head>\n" +
-                "<!-- HTML Codes by Quackit.com -->\n" +
-                "<title>\n" +
-                "</title>\n" +
-                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                "<style>\n" +
-                "body {background-repeat:no-repeat;background-position:center center;background-attachment:fixed;}\n" +
-                "h2{font-family:Impact, sans-serif;font-variant:small-caps;color:#58181f;padding-bottom:20px}\n" +
-                "p {text-align:center;font-family:Arial, sans-serif;font-size:15px;font-style:italic;font-weight:bold;color:#000000}" +
-                "att {padding-top:20px}\n" +
-                "</style>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "<h2>Deleção de cadastro realizada com sucesso</h2>\n" +
-                "<p>%s, seu cadastro foi removido com sucesso.</p>\n" +
-                "<p>/*------------------------------------------*/</p>" +
-                "<p id='att'>Atenciosamente</p>\n" +
-                "<p>Projeto Mail Sender</p>\n" +
-                "</body>\n" +
-                "</html>\n", user.getName());
+    public static String getRegisterMessage(User user){
+        return String.format(loadMessage(REGISTER_MESSAGE), user.getName());
     }
+
+    public static String loadMessage(String filePath){
+        StringBuilder builder = new StringBuilder();
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+            String line = reader.readLine();
+            while(line != null){
+                builder.append(line);
+                line = reader.readLine();
+            }
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return String.valueOf(builder);
+    }
+
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+</title>
+<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+<style>
+body {background-repeat:no-repeat;background-position:center center;background-attachment:fixed;}
+h2{font-family:Impact, sans-serif;font-variant:small-caps;color:#58181f;padding-bottom:20px}
+p {text-align:center;font-family:Arial, sans-serif;font-size:15px;font-style:italic;font-weight:bold;color:#000000}
+att {padding-top:20px}
+</style>
+</head>
+<body>
+<h2>Cadastro realizado com sucesso!</h2>
+<br>
+<p>Parabéns %s, seu usuário foi cadastrado com sucesso.</p>
+<p>/*------------------------------------------*/</p>
+<p id='att'>Atenciosamente</p>
+<p>Projeto Mail Sender</p>
+</body>
+</html>

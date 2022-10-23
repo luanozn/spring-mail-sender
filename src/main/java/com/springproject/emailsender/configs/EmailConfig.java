@@ -1,10 +1,7 @@
 package com.springproject.emailsender.configs;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -19,13 +16,17 @@ public class EmailConfig{
     
 
     private static final File FILE = new File("application.properties");
-    private static final String ABSOLUTE_PATH = FILE.getAbsolutePath();
+    private static final String ABSOLUTE_PATH = FILE.getAbsolutePath().replace("application.properties", "/src/main/resources/application.properties");
 
+    /**
+     * Instantiate, configure and returns the JavaMailSender.
+     * @return JavaMailSender
+     */
     @Bean
-    public static JavaMailSender getJavaMailSender(){ // Instancia, configura e retorna o JavaMailSender (O que enviará os emails)
+    public static JavaMailSender getJavaMailSender(){ //
         Properties props = loadProperties();
-        props.put("mail.smtp.starttls.enable", "true");
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        props.put("mail.smtp.starttls.enable", true);
         mailSender.setJavaMailProperties(props);
         mailSender.setUsername(mailSender.getJavaMailProperties().getProperty("spring.mail.name"));
         mailSender.setPassword(mailSender.getJavaMailProperties().getProperty("spring.mail.password"));
@@ -34,9 +35,13 @@ public class EmailConfig{
         return mailSender;
     }
 
+    /**
+     * loads the properties that are in the file application.properties
+     * @return Properties
+     */
     public static Properties loadProperties(){  // Carrega as propriedades contidas no arquivo application.properties
         Properties props = new Properties();
-        try(FileInputStream stream = new FileInputStream(ABSOLUTE_PATH.replace("application.properties", "/src/main/resources/application.properties"))){
+        try(FileInputStream stream = new FileInputStream(ABSOLUTE_PATH)){
                 props.load(stream);
         } catch (IOException e) {
             e.printStackTrace();
