@@ -8,19 +8,21 @@ import com.springproject.emailsender.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Arrays;
+import java.util.LinkedList;
+/**
+ * Class that implements the UserService interface, providing the CRUD methods for user information
+ */
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    /*
-    * Classe que implementa a interface UserService, realizando os métodos de busca, inserção e remoção
-    * que podem ser utilizados onde houver a injeção de dependência por parte do Spring (Autowired)
-    * */
+    private final UserRepository repository;
 
-    @Autowired
-    private UserRepository repository;
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public LinkedList<User> findAll() {
@@ -36,12 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insert(User user) {
-        LinkedList<User> users = findAll();
-        if (users.stream().map(User::getLogin).collect(Collectors.toList()).contains(user.getLogin()))
+        if(repository.existsById(user.getLogin()))
             throw new UsernameAlreadyExistsException(user.getLogin());
-        else {
-            repository.save(user);
-        }
+        repository.save(user);
     }
 
     @Override
@@ -54,14 +53,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(String username, User user){
-        LinkedList<User> users = findAll();
-        if(
-            users.stream().map(User::getLogin).collect(Collectors.toList()).contains(username) &&
-            user.getLogin().equals(username)
-        )
+        if(findById(username).getLogin().equals(user.getLogin()))
             repository.save(user);
-        else
-            throw new UserNotFoundException(user.getLogin());
     }
 
     public List<String> getInfo(User user){

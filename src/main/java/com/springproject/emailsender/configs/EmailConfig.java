@@ -19,7 +19,7 @@ public class EmailConfig{
     private static final String ABSOLUTE_PATH = FILE.getAbsolutePath().replace("application.properties", "/src/main/resources/application.properties");
 
     /**
-     * Instantiate, configure and returns the JavaMailSender.
+     * Instantiates, configures and returns the JavaMailSender.
      * @return JavaMailSender
      */
     @Bean
@@ -36,10 +36,10 @@ public class EmailConfig{
     }
 
     /**
-     * loads the properties that are in the file application.properties
+     * loads the properties located in the application.properties file
      * @return Properties
      */
-    public static Properties loadProperties(){  // Carrega as propriedades contidas no arquivo application.properties
+    public static Properties loadProperties(){
         Properties props = new Properties();
         try(FileInputStream stream = new FileInputStream(ABSOLUTE_PATH)){
                 props.load(stream);
@@ -49,7 +49,4 @@ public class EmailConfig{
         return props;
     }
 
-    public static SimpleMailMessage getMailMessage(){
-        return new SimpleMailMessage();
-    }
 }

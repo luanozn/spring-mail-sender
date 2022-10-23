@@ -1,47 +1,31 @@
 package com.springproject.emailsender.model;
 
 import com.sun.istack.NotNull;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Objects;
 
+/**
+ * Application main entity.
+ */
+
+@Getter
 @Entity
-public class User { //Entidade principal da aplicação
+public class User {
 
     @Id
     @NotNull
+    @EqualsAndHashCode.Include
     private String login;
+
+    @EqualsAndHashCode.Exclude
     private String password;
+
+    @EqualsAndHashCode.Exclude
     private String name;
+
+    @EqualsAndHashCode.Exclude
     private String email;
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return login.equals(user.login);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(login);
-    }
 }

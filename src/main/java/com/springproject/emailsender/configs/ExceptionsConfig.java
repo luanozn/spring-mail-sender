@@ -1,5 +1,7 @@
 package com.springproject.emailsender.configs;
 
+import com.springproject.emailsender.model.exceptions.UserNotFoundException;
+import com.springproject.emailsender.model.exceptions.UsernameAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,7 +29,7 @@ public class ExceptionsConfig {
     }
 
     @ResponseBody
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler({UsernameAlreadyExistsException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String runtimeExceptionHandler(RuntimeException e){
         return e.getMessage();

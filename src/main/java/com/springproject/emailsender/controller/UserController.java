@@ -12,17 +12,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Class that receives the requests and provides the adequate response
+ * Class that receives the requests and provides the adequate response for User CRUD actions
  */
+
 @RestController
 @RequestMapping("users")
 public class UserController {
 
 
+    private final UserServiceImpl userService;
+
+    private final EmailServiceImpl emailService;
+
     @Autowired
-    UserServiceImpl userService;
-    @Autowired
-    EmailServiceImpl emailService;
+    public UserController(UserServiceImpl userService, EmailServiceImpl emailService) {
+        this.userService = userService;
+        this.emailService = emailService;
+    }
 
     @GetMapping
     public ResponseEntity<LinkedList<User>> findAll(){
