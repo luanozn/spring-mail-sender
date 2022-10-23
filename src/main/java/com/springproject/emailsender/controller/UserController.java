@@ -59,7 +59,7 @@ public class UserController {
     public ResponseEntity<User> update(@PathVariable("id") String username, @RequestBody User user){
         List<String> information = userService.getInfo(userService.findById(username));
         userService.update(username, user);
-        emailService.sendEmail(user.getEmail(), "Atualização de Cadastro", MessageConfig.getUpdateMessage(username, user, information));
+        emailService.sendEmail(user.getEmail(), "Atualização de Cadastro", MessageConfig.getUpdateMessage(user, information));
         return ResponseEntity.ok(user);
     }
 

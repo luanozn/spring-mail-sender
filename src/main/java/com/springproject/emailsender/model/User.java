@@ -28,4 +28,5 @@ public class User {
 
     @EqualsAndHashCode.Exclude
     private String email;
+
 }

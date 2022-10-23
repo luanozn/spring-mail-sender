@@ -22,14 +22,14 @@ public class ExceptionsConfig {
 
 
     @ResponseBody
-    @ExceptionHandler(NoResultException.class)
+    @ExceptionHandler({NoResultException.class, UserNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String noResultExceptionHandler(NoResultException e){
         return e.getMessage();
     }
 
     @ResponseBody
-    @ExceptionHandler({UsernameAlreadyExistsException.class})
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String runtimeExceptionHandler(RuntimeException e){
         return e.getMessage();

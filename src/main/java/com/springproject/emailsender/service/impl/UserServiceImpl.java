@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 /**
  * Class that implements the UserService interface, providing the CRUD methods for user information
+ * and creating custom actions
  */
 
 @Service
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
 
+    @Autowired
     public UserServiceImpl(UserRepository repository) {
         this.repository = repository;
     }
