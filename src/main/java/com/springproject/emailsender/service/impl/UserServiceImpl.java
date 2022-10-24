@@ -1,7 +1,7 @@
 package com.springproject.emailsender.service.impl;
 
 import com.springproject.emailsender.model.User;
-import com.springproject.emailsender.model.UserRepository;
+import com.springproject.emailsender.repository.UserRepository;
 import com.springproject.emailsender.model.exceptions.UserNotFoundException;
 import com.springproject.emailsender.model.exceptions.UsernameAlreadyExistsException;
 import com.springproject.emailsender.service.UserService;

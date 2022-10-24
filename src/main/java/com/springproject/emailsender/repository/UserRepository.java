@@ -1,5 +1,6 @@
-package com.springproject.emailsender.model;
+package com.springproject.emailsender.repository;
 
+import com.springproject.emailsender.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
