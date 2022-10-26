@@ -30,16 +30,34 @@ public class UserController {
         this.emailService = emailService;
     }
 
+    /**
+     * Endpoint that receives the request to find all users in database.
+     *
+     * @return a response containing a LinkedList with all users in database, and HTTP response code.
+     */
+
     @GetMapping
     public ResponseEntity<LinkedList<User>> findAll(){
         return ResponseEntity.ok(userService.findAll());
     }
 
+    /**
+     * Endpoint that receives the request to find only one user by Username
+     *
+     * @param username refers to User identifier.
+     * @return a response containing a specific user, and HTTP response code.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable("id") String username){
         return ResponseEntity.ok(userService.findById(username));
     }
 
+    /**
+     * Endpoint that receives the request to insert a new User on database
+     *
+     * @param user refers to the user that will be inserted on database
+     * @return a response containing the user that was inserted on database and the HTTP response.
+     */
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user){
         userService.insert(user);
@@ -47,6 +65,12 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    /**
+     * Endpoint that receives a request to delete a user from database.
+     *
+     * @param username refers to the user that will be removed from database.
+     * @return the HTTP response according to response status.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<User> remove(@PathVariable("id") String username){
         User user = userService.findById(username);
@@ -55,6 +79,13 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Endpoint that receives a request to update user data on database.
+     *
+     * @param username refers to user id to get user info before the update.
+     * @param user refers to new user data to be updated.
+     * @return a response containing the user and the HTTP response.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable("id") String username, @RequestBody User user){
         List<String> information = userService.getInfo(userService.findById(username));
