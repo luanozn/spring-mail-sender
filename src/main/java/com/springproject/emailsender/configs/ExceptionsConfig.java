@@ -20,7 +20,12 @@ import javax.persistence.NoResultException;
 @ControllerAdvice
 public class ExceptionsConfig {
 
-
+    /**
+     * Method that treats not found HTTP responses for specified Exceptions.
+     *
+     * @param e caught exception.
+     * @return message error.
+     */
     @ResponseBody
     @ExceptionHandler({NoResultException.class, UserNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -28,6 +33,12 @@ public class ExceptionsConfig {
         return e.getMessage();
     }
 
+    /**
+     * Method that treats bad request HTTP responses for specified Exception.
+     *
+     * @param e caugh exception
+     * @return message error
+     */
     @ResponseBody
     @ExceptionHandler(UsernameAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

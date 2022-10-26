@@ -2,6 +2,9 @@ package com.springproject.emailsender.configs.enum_config;
 
 import java.io.File;
 
+/**
+ * Enum that contains all PATHS used on application.
+ */
 public enum Paths {;
     private static final File[] MESSAGE_FILES = {new File("DeleteMessage"), new File("RegisterMessage"), new File("UpdateMessage")};
 
