@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
         this.repository = repository;
     }
 
+    /**
+     * Method that retrieve all users in database.
+     *
+     * @return LinkedList containing all users on database.
+     */
     @Override
     public LinkedList<User> findAll() {
         LinkedList<User> users = new LinkedList<>();
@@ -33,11 +38,22 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    /**
+     * Method that find one specific user on database by its identifier.
+     *
+     * @param username user identifier.
+     * @return specific user retrieved from identifier.
+     */
     @Override
     public User findById(String username) {
         return repository.findById(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
+    /**
+     * Method that inserts a new user into database
+     *
+     * @param user the user who will be added on database.
+     */
     @Override
     public void insert(User user) {
         if(repository.existsById(user.getLogin()))
@@ -45,6 +61,11 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
     }
 
+    /**
+     * Method that will remove one user from database
+     *
+     * @param user the user who will be removed from database.
+     */
     @Override
     public void remove(User user){
         if(repository.existsById(user.getLogin()))
@@ -53,12 +74,24 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException(user.getLogin());
     }
 
+    /**
+     * Method that will update user data on database
+     *
+     * @param username User identifier that retrieve before update.
+     * @param user User that contains a user with new information but same username.
+     */
     @Override
     public void update(String username, User user){
         if(findById(username).getLogin().equals(user.getLogin()))
             repository.save(user);
     }
 
+    /**
+     * Method that splits user data.
+     *
+     * @param user User to retrieve data.
+     * @return List with all user data in separated slots.
+     */
     public List<String> getInfo(User user){
         return Arrays.asList(user.getLogin(),
                 user.getPassword(),
