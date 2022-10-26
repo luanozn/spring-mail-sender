@@ -10,17 +10,21 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Objects;
 
+/**
+ * Service that creates custom message based on UTF-8 and sends the email.
+ */
 @Service("emailService")
 public class EmailServiceImpl implements EmailService {
 
-    /*
-    * Classe que cria uma mensagem personalizada com base no encoding UTF-8 e envia o email
-    * de acordo com as necessidades do programado.
-    * Pode ser utilizada onde houver a injeção de dependência por parte do Spring(@Autowired)
-    * */
-
     JavaMailSenderImpl javaMailSender = (JavaMailSenderImpl) EmailConfig.getJavaMailSender();
 
+    /**
+     * Method that send emails
+     *
+     * @param destiny destination email.
+     * @param title refers to email title.
+     * @param content refers to email content.
+     */
     @Override
     public void sendEmail(String destiny, String title, String content) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
