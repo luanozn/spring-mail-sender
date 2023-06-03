@@ -33,9 +33,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public LinkedList<User> findAll() {
-        LinkedList<User> users = new LinkedList<>();
-        repository.findAll().forEach(users::add);
-        return users;
+        return new LinkedList<>(repository.findAll());
     }
 
     /**
@@ -86,17 +84,5 @@ public class UserServiceImpl implements UserService {
             repository.save(user);
     }
 
-    /**
-     * Method that splits user data.
-     *
-     * @param user User to retrieve data.
-     * @return List with all user data in separated slots.
-     */
-    public List<String> getInfo(User user){
-        return Arrays.asList(user.getLogin(),
-                user.getPassword(),
-                user.getName(),
-                user.getEmail());
-    }
 }
 

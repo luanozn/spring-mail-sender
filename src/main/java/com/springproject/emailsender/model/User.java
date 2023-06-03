@@ -1,5 +1,6 @@
 package com.springproject.emailsender.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sun.istack.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 
 @Getter
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
     @Id
@@ -28,5 +30,7 @@ public class User {
 
     @EqualsAndHashCode.Exclude
     private String email;
+
+    private String phone;
 
 }

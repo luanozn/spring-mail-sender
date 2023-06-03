@@ -60,6 +60,7 @@ public class UserController {
      */
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user){
+        userService.insert(user);
         emailService.sendEmail(user.getEmail(),"Confirmação de Cadastro", MessageConfig.getRegisterMessage(user));
         return ResponseEntity.ok(user);
     }
@@ -71,8 +72,10 @@ public class UserController {
      * @return the HTTP response according to response status.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> remove(@PathVariable("id") String username, String email){
-        emailService.sendEmail(email, "Remoção de Cadastro", MessageConfig.getDeleteMessage(username));
+    public ResponseEntity<User> remove(@PathVariable("id") String username){
+        var user = userService.findById(username);
+        userService.remove(user);
+        emailService.sendEmail(user.getEmail(), "Remoção de Cadastro", MessageConfig.getDeleteMessage(user.getName()));
         return ResponseEntity.ok().build();
     }
     
