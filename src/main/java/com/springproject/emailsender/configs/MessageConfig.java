@@ -24,8 +24,8 @@ public class MessageConfig {
      * @param   user Used to format the respective message
      * @return  string containing the message of account deletion
      */
-    public static String getDeleteMessage(User user) {
-        return String.format(loadMessage(Paths.DELETE_MESSAGE_PATH), user.getName());
+    public static String getDeleteMessage(String user) {
+        return String.format(loadMessage(Paths.DELETE_MESSAGE_PATH), user);
     }
 
     /**

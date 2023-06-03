@@ -1,22 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>
-</title>
-<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
-<style>
-body {background-repeat:no-repeat;background-position:center center;background-attachment:fixed;}
-h2{font-family:Impact, sans-serif;font-variant:small-caps;color:#58181f;padding-bottom:20px}
-p {text-align:center;font-family:Arial, sans-serif;font-size:15px;font-style:italic;font-weight:bold;color:#000000}
-att {padding-top:20px}
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+.header{
+    background-color: black;
+    color: white;
+    height: 100px;
+    border-bottom: 2px solid gray;
+}
+
+.menuBox{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.listItem{
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 17px;
+    list-style-type: none;
+    text-decoration: none;
+    color: white;
+}
+
+.container-body{
+    height: 89.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #32A402;
+}
+
+.container{
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background: #fff;
+    padding: 28px 32px;
+    overflow: hidden;
+    border-radius: 18px;
+    font-family: 'Roboto', sans-serif;
+    transition: 0.6s ease-out;
+    box-shadow: 5px 5px 5px 2px black;
+}
+
+.titleBox{
+    background-color: gray;
+    padding: 10px;
+    text-align: center;
+    border-radius: 25px;
+    color: darkred;
+    box-shadow: 5px 5px 5px darkgray;
+}
+
+.text{
+    padding: 10px;
+    padding-top: 40px;
+    font-size: larger;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.imageBox{
+    padding:10px;
+    text-align: center;
+    padding-top: 150px;
+}
+
+    </style>
+
 </head>
 <body>
-<h2>Cadastro realizado com sucesso!</h2>
-<br>
-<p>Parabéns %s, seu usuário foi cadastrado com sucesso.</p>
-<p>/*------------------------------------------*/</p>
-<p id='att'>Atenciosamente</p>
-<p>Projeto Mail Sender</p>
+
+    <div class="container-body">
+        <div class="container">
+
+            <div class="titleBox">
+                <h2>Cadastro Realizado com Sucesso!</h2>
+            </div>
+
+            <div class="text">
+                <p>Parabéns %s, seu usuário foi cadastrado com sucesso.</p>
+            </div>
+
+            <div class="imageBox">
+                <img src="https://i.imgur.com/nWe8251.png" alt="">
+            </div>
+        </div>
+    </div>
+
+
 </body>
 </html>
