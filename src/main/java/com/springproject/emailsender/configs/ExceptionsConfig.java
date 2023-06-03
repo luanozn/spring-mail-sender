@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.persistence.NoResultException;
 
 /**
  * Controller for the exception treatment based on the HTTP status.
@@ -20,18 +19,6 @@ import javax.persistence.NoResultException;
 @ControllerAdvice
 public class ExceptionsConfig {
 
-    /**
-     * Method that treats not found HTTP responses for specified Exceptions.
-     *
-     * @param e caught exception.
-     * @return message error.
-     */
-    @ResponseBody
-    @ExceptionHandler({NoResultException.class, UserNotFoundException.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String noResultExceptionHandler(NoResultException e){
-        return e.getMessage();
-    }
 
     /**
      * Method that treats bad request HTTP responses for specified Exception.
