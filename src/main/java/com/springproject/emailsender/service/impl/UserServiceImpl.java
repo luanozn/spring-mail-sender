@@ -54,8 +54,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void insert(User user) {
-        if(repository.existsById(user.getLogin()))
-            throw new UsernameAlreadyExistsException(user.getLogin());
         repository.save(user);
     }
 
@@ -66,10 +64,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void remove(User user){
-        if(repository.existsById(user.getLogin()))
             repository.delete(user);
-        else
-            throw new UserNotFoundException(user.getLogin());
     }
 
     /**
