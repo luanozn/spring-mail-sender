@@ -33,4 +33,11 @@ public class ExceptionsConfig {
         return e.getMessage();
     }
 
+    @ResponseBody
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String userNotFoundExceptionHandler(RuntimeException e){
+        return e.getMessage();
+    }
+
 }
