@@ -54,6 +54,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void insert(User user) {
+        if(repository.existsById(user.getLogin())){
+            throw new UsernameAlreadyExistsException("Username already exists");
+        }
         repository.save(user);
     }
 
