@@ -78,6 +78,13 @@ public class UserController {
         emailService.sendEmail(user.getEmail(), "Remoção de Cadastro", MessageConfig.getDeleteMessage(user.getName()));
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable String id, User user) {
+        userService.update(id, user);
+
+        return ResponseEntity.ok().build();
+    }
     
 
 }
