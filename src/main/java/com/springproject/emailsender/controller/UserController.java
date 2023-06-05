@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable String id, User user) {
+    public ResponseEntity<User> update(@PathVariable String id, @RequestBody User user) {
         userService.update(id, user);
 
         return ResponseEntity.ok().build();
