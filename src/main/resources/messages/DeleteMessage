@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +7,7 @@
     <title>Document</title>
 
     <style>
-        *{
+ *{
     margin: 0;
     padding: 0;
     border: 0;
@@ -45,14 +45,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #32A402;
+    background: #fff;
 }
 
 .container{
     position: relative;
     width: 400px;
     height: 600px;
-    background: #fff;
+    background: #d9d9d9;
+    color: black;
     padding: 28px 32px;
     overflow: hidden;
     border-radius: 18px;
@@ -62,11 +63,11 @@
 }
 
 .titleBox{
-    background-color: gray;
+    background-color: #393735;
     padding: 10px;
     text-align: center;
     border-radius: 25px;
-    color: darkred;
+    color: white;
     box-shadow: 5px 5px 5px darkgray;
 }
 
@@ -83,7 +84,6 @@
     text-align: center;
     padding-top: 150px;
 }
-
     </style>
 
 </head>
@@ -102,7 +102,7 @@
             </div>
 
             <div class="imageBox">
-                <img src="https://i.imgur.com/nWe8251.png" alt="">
+                <img src="https://i.imgur.com/V8H4gC3.png" alt="">
             </div>
         </div>
     </div>
