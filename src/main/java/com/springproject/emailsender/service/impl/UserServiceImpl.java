@@ -1,15 +1,11 @@
 package com.springproject.emailsender.service.impl;
 
 import com.springproject.emailsender.model.User;
-import com.springproject.emailsender.repository.UserRepository;
 import com.springproject.emailsender.model.exceptions.UserNotFoundException;
-import com.springproject.emailsender.model.exceptions.UsernameAlreadyExistsException;
 import com.springproject.emailsender.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Arrays;
 import java.util.LinkedList;
 /**
  * Class that implements the UserService interface, providing the CRUD methods for user information
@@ -19,11 +15,10 @@ import java.util.LinkedList;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repository;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
-        this.repository = repository;
+    public UserServiceImpl() {
+
     }
 
     /**
@@ -33,7 +28,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public LinkedList<User> findAll() {
-        return new LinkedList<>(repository.findAll());
+        return new LinkedList<>();
     }
 
     /**
@@ -44,7 +39,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User findById(String username) {
-        return repository.findById(username).orElseThrow(() -> new UserNotFoundException(username));
+        return new User();
     }
 
     /**
@@ -53,11 +48,7 @@ public class UserServiceImpl implements UserService {
      * @param user the user who will be added on database.
      */
     @Override
-    public void insert(User user) {
-        if(repository.existsById(user.getLogin())){
-            throw new UsernameAlreadyExistsException("Username already exists");
-        }
-        repository.save(user);
+    public void insert(User user){
     }
 
     /**
@@ -67,7 +58,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void remove(User user){
-            repository.delete(user);
+
     }
 
     /**
@@ -77,9 +68,7 @@ public class UserServiceImpl implements UserService {
      * @param user User that contains a user with new information but same username.
      */
     @Override
-    public void update(String username, User user){
-        if(findById(username).getLogin().equals(user.getLogin()))
-            repository.save(user);
+    public void update(String username, User user) {
     }
 
 }
