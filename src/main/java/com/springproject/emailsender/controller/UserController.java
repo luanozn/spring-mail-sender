@@ -69,7 +69,7 @@ public class UserController {
      *
      * @return the HTTP response according to response status.
      */
-    @DeleteMapping
+    @PostMapping("/delete")
     public ResponseEntity<User> remove(@RequestBody User user){
         emailService.sendEmail(user.getEmail(), "Remoção de Cadastro", MessageConfig.getDeleteMessage(user.getName()));
         return ResponseEntity.ok().build();
